@@ -47,7 +47,7 @@
 
                                 <div class="input-field col">
 <!--                                    <label for="mailuid">Enter Your Username/E-mail</label>-->
-                                    <input type="text" name="mailuid" placeholder="Username/E-mail" class="#004d40 teal darken-2">
+                                    <input type="text" name="mailuser" placeholder="Username/E-mail" class="#004d40 teal darken-2">
                                 </div>
                                 <div class="input-field col">
 <!--                                    <label for="pwd">Enter Your Password</label>-->

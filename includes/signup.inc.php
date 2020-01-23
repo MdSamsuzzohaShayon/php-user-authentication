@@ -22,7 +22,7 @@ if (isset($_POST['signup-submit'])) {
         header("Location: ../signup.php?error=invaliduid&mail=" . $email);
         exit();
     } else if ($password !== $passwordRepeat) {
-        header("Location: ../signup.php?error=passwordcheckuid=" . $username . "&mail=$email");
+        header("Location: ../signup.php?error=passwordcheck&username=" . $username . "&mail=$email");
         exit();
     } else {
         $sql = "SELECT username FROM users WHERE username=?"; //WE ARE CREATING A PLACEHOLDER // WE CAN WRITE $USERNAME IN PLACE OF ? SIGH AND THAT UNSAFE WAY
