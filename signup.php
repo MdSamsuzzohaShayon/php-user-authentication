@@ -6,7 +6,7 @@
         <form action="includes/signup.inc.php" method="post" class="col s12">
             <div class="row">
                 <div class="input-field col s6">
-                    <input type="text" name="uid" placeholder="Username">
+                    <input type="text" name="uid" placeholder="Username" c>
                 </div>
                 <div class="input-field col s6">
                     <input type="email" name="mail" placeholder="E-mail">

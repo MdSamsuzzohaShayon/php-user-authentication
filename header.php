@@ -24,6 +24,9 @@
             margin-top: 0 !important;
             transform: translateY(-10px);
         }
+        input{
+           color: white !important;
+        }
     </style>
 </head>
 <body>

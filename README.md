@@ -1,3 +1,33 @@
+# User Authentication System
+
+### Create database 
+
+database name **loginsystem**
+
+### Create table
+
+```
+CREATE TABLE users(
+    id INT(11) AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    username TINYTEXT NOT NULL,
+    email TINYTEXT NOT NULL,
+    pwd LONGTEXT NOT NULL
+);
+```
+
+
+
+<hr>
+<hr>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
 <p align="center">
   <a href="http://materializecss.com/">
     <img src="http://materializecss.com/res/materialize.svg" width="150">
