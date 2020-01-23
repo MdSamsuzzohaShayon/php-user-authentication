@@ -17,6 +17,13 @@
             background-position: center;
             background-repeat: no-repeat;
         }
+        .btn{
+            padding: 0 !important;
+            height: 50px !important;
+            width: 120px !important;
+            margin-top: 0 !important;
+            transform: translateY(-10px);
+        }
     </style>
 </head>
 <body>
@@ -44,14 +51,14 @@
                                     <input type="password" name="pwd" placeholder="Your Password" class="#004d40 teal darken-2">
                                 </div>
                                 <div class="input-field col">
-                                    <input type="submit" value="Login" class="waves-effect #004d40 teal darken-2 btn btn-small" name="login-submit">
+                                    <input type="submit" value="Login" class="waves-effect #004d40 teal-light darken-2 btn" name="login-submit" >
                                 </div>
 
                         </form>
                         <a href="signup.php" class="col">Signup</a>
 
                         <form action="includes/logout.inc.php" class="col" method="post">
-                                <input type="submit" value="Logout" class="waves-effect #004d40 teal darken-2 btn btn-small" name="logout-submit">
+                                <input type="submit" value="Logout" class="waves-effect #004d40 teal-light darken-2 btn" name="logout-submit">
                         </form>
                     </div>
                 </ul>
