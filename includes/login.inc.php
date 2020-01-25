@@ -1,6 +1,6 @@
 <?php
 
-    if (isset($_POST['login_submit'])){
+    if (isset($_POST['login-submit'])){
 
         require "dbh.inc.php";
 
@@ -21,13 +21,14 @@
                 mysqli_stmt_bind_param($stmt, 'ss', $mailuser, $mailuser);
                 mysqli_stmt_execute($stmt);
                 $result = mysqli_stmt_get_result($stmt);
-                if($row = mysqli_fetch_assoc()){
-                    $pwdCheck = password_verify($password, $row['pwd']);
+                if($row = mysqli_fetch_assoc($result)){
+                    $pwdCheck = password_verify($password, $row['pwd']); /// CHECKING USER ENTER PASSWORD WITH DATABASE HASH PASSWORD
+                    // CHECK PASSWORD IS WRONG OR RIGHT
                     if($pwdCheck == false){
                         header("Location: ../index.php?error=wrongpwd");
                         exit();
                     }else if($pwdCheck == true){
-                        session_start();
+                        session_start(); // IN ORDER TO CHECK GLOBAL VARIABLE AVAILABLE OR NOT ... STORE A GLOBAL VARIABLE THAT IS START
                         $_SESSION['userId'] = $row['id'];
                         $_SESSION['userName'] = $row['username'];
                         header("Location: ../index.php?login=success");
