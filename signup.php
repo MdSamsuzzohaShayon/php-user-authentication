@@ -1,52 +1,71 @@
-<?php require "header.php"?>
+<?php
+include('partials/header.php');
+include('config/db.php');
+session_start();
 
-<main class="container ">
-    <h1>Signup</h1>
-    <?php
-        if(isset($_GET['error'])){
-            if ($_GET['error']== "emptyfields"){
-                echo '<p class="card-panel #d32f2f red darken-2">Fill all the forms</p>';
-            }else if($_GET['error']== "invalidmailuid"){
-                echo '<p class="card-panel #d32f2f red darken-2">Invalid user name and e-mail</p>';
-            }else if($_GET['error']== "invalidmail"){
-                echo '<p class="card-panel #d32f2f red darken-2">Invalid E-mail</p>';
-            }else if($_GET['error']== "invaliduidl"){
-                echo '<p class="card-panel #d32f2f red darken-2">Invalid Username</p>';
-            }else if($_GET['error']== "passwordcheck"){
-                echo '<p class="card-panel #d32f2f red darken-2">Your password did not match</p>';
-            }else if($_GET['error']== "usertaken"){
-                echo '<p class="card-panel #d32f2f red darken-2">User is already taken</p>';
-            }
-        }else if($_GET['signup'] == 'success'){
-            echo '<p class="card-panel #388e3c green darken-2">Sign up successful </p>';
+// $_SESSION - An associative array containing session variables available to the current script.
+//  CHECKING IS THERE ANY USERNAME VARIABLE SET IN SESSION
+if(isset($_SESSION['email'])){
+    header("location: index.php");
+}
+
+
+// isset — Determine if a variable is declared and is different than NULL
+if (isset($_POST['signup'])) {
+
+
+    // mysqli_real_escape_string — Escapes special characters in a string for use in an SQL statement, taking into account the current charset of the connection
+    $name = mysqli_real_escape_string($conn, $_POST['name']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $password = mysqli_real_escape_string($conn, md5($_POST['password'])); // md5 — Calculate the md5 hash of a string
+    // $password2 = mysqli_real_escape_string($conn, md5($_POST['password2']));
+    // echo $name . $email . $password;
+
+
+    $sql = "SELECT email FROM users WHERE email='{$email}'";
+
+    // mysqli_query — Performs a query on the database
+    $result = mysqli_query($conn, $sql) or die("Query frield");
+
+    // mysqli_num_rows — Gets the number of rows in a result
+    if (mysqli_num_rows($result) > 0) {
+        echo "<p style='color:red;text-align:center;margin: 10px 0'> Username already exist</p>";
+    } else {
+        $sql1 = "INSERT INTO users (name, email,password) VALUES ('$name', '$email', '$password')";
+        // echo $sql1;
+        if (mysqli_query($conn, $sql1)) {
+            header("Location: index.php?user=added_user");
+            // header("Location: users.php");
         }
-    ?>
-    <div class="row">
-        <form action="includes/signup.inc.php" method="post" class="col s12">
-            <div class="row">
-                <div class="input-field col s6">
-                    <input type="text" name="uid" placeholder="Username" >
-                </div>
-                <div class="input-field col s6">
-                    <input type="email" name="mail" placeholder="E-mail">
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s6">
-                    <input type="password" name="pwd" placeholder="Password">
-                </div>
-                <div class="input-field col s6">
-                    <input type="password" name="pwd-repeat" placeholder="Repeat Password">
-                </div>
-            </div>
+    }
+}
 
+?>
 
-
-
-            <!--        HERE I MADE THE MISTAKE IN PREVIOUS PROJECT. SUBMIT INPUT FIELD SHOULD HAVE A NAME-->
-            <input type="submit" value="Signup" name="signup-submit" class="btn #004d40 teal darken-4">
-        </form>
+<div class="ui container">
+  <div class="ui header">Signup</div>
+  <form class="ui form" action="<?php $_SERVER['PHP_SELF']; ?>" method="post">
+    <div class="two fields">
+      <div class="field">
+        <label for="name">Full Name</label>
+        <input type="text" name="name" placeholder="enter your full name...">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" name="email" placeholder="enter your email...">
+      </div>
     </div>
-</main>
-
-<?php require "footer.php" ?>
+    <div class="two fields">
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" name="password" placeholder="set a strong password...">
+      </div>
+      <div class="field">
+        <label for="password2">Confirm Password</label>
+        <input type="password" name="password2" placeholder="enter your password2...">
+      </div>
+    </div>
+    <input type="submit" name="signup" class="ui tiny button green fluid" value="Save" required />
+  </form>
+</div>
+<?php include('partials/footer.php'); ?>
